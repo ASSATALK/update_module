@@ -23,7 +23,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         }
         var data = msg.replace(chat[0] + " " +chat[1] + " " ,"");
         //data = data.replace()
-replier.reply(data);
+//replier.reply(data);
         var check = false;
         for(var i = 0;i<30;i++){
             if(chat[1]==input[i]){
