@@ -1,3 +1,4 @@
+PARSING_LINE
 
 var input = [];
 
@@ -62,3 +63,5 @@ break;
         if(msg==input[i]) replier.reply(output[i]);
     }
 }
+
+PARSING_LINE
