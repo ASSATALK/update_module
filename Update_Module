@@ -6,6 +6,7 @@ var output = [];
 
 var person = [];
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
+    try{
     var chat = msg.split(" ");
     if(chat[0]=="!say"){
         var data = msg.replace(chat[0] + " ","");
@@ -61,6 +62,9 @@ break;
     }
     for(var i = 0;i<30;i++){
         if(msg==input[i]) replier.reply(output[i]);
+    }
+    }catch(e){
+        replier.reply(e);
     }
 }
 
