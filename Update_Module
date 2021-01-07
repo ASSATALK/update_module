@@ -17,7 +17,7 @@ replier.reply(data);
         var check = false;
         for(var i = 0;i<30;i++){
             if(input[i]==undefined&&data!=""){
-                input[i] = chat[1];
+                input[i] = chat[1];dfs
                 output[i] = data;
                 person[i] = sender;
                 replier.reply("성공!");
