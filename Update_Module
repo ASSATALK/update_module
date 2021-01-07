@@ -17,6 +17,16 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 replier.reply(data);
         var check = false;
         for(var i = 0;i<30;i++){
+            if(chat[1]==input[i]){
+                check = true;
+                break;
+            }
+        }
+        if(check == true){
+            replier.reply("이미 사용중인 명령어 입니다!");
+        }
+        check = false;
+        for(var i = 0;i<30;i++){
             if(input[i]==undefined&&data!=""){
                 input[i] = chat[1];
                 output[i] = data;
@@ -50,9 +60,9 @@ break;
         var data="사용자 명령어 리스트";
         var check=false;
         for(var i = 0;i<30;i++){
-          replier.reply(input[i]+" "+ output[i] + person[i]);
+          //replier.reply(input[i]+" "+ output[i] + person[i]);
             if(input[i]!=""&&input[i]!=undefined){
-                data += "\n" + person[i] + " 님이 추가한 " + input[i];
+                data += "\n" +input[i]+" - "+person[i];
                 check=true;
             }
             
