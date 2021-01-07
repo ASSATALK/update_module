@@ -12,8 +12,9 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         var data = msg.replace(chat[0] + " ","");
         replier.reply(data);
     }
-    if(chat[0]=="!add"){
+    if(chat[0]=="!add"&&chat[2]!=undefined){
         var data = msg.replace(chat[0] + " " +chat[1] + " " ,"");
+        //data = data.replace()
 replier.reply(data);
         var check = false;
         for(var i = 0;i<30;i++){
@@ -45,9 +46,9 @@ break;
         var check = false;
         for(var i = 0;i<30;i++){
             if(input[i]==data){
-                input[i] = "";
-                output[i] = "";
-                person[i] = "";
+                input[i] = undefined;
+                output[i] = undefined;
+                person[i] = undefined;
                 replier.reply("성공!");
                 check = true;
             }
