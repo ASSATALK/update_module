@@ -12,7 +12,15 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         var data = msg.replace(chat[0] + " ","");
         replier.reply(data);
     }
-    if(chat[0]=="!add"&&chat[2]!=undefined){
+    if(chat[0]=="!add"){
+        if(chat[1]==undefined){
+            replier.reply("명령어 존재하지 않습니다!");
+            return;
+        }
+        else if(chat[2]==undefined){
+            replier.reply("출력이 존재하지 않습니다!");
+            return;
+        }
         var data = msg.replace(chat[0] + " " +chat[1] + " " ,"");
         //data = data.replace()
 replier.reply(data);
@@ -25,6 +33,7 @@ replier.reply(data);
         }
         if(check == true){
             replier.reply("이미 사용중인 명령어 입니다!");
+            return;
         }
         check = false;
         for(var i = 0;i<30;i++){
