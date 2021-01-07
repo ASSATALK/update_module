@@ -14,7 +14,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     }
     if(chat[0]=="!add"){
         if(chat[1]==undefined){
-            replier.reply("명령어 존재하지 않습니다!");
+            replier.reply("명령어가 존재하지 않습니다!");
             return;
         }
         else if(chat[2]==undefined){
