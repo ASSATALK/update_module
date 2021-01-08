@@ -128,12 +128,12 @@ break;
         }
     }
     if(chat[0]=="!list"){
-        var data="사용자 명령어 리스트"+short;
+        var data="사용자 명령어 리스트"+short+"\n";
         var check=false;
         for(var i = 0;i<30;i++){
           //replier.reply(input[i]+" "+ output[i] + person[i]);
             if(input[i]!=""&&input[i]!=undefined){
-                data += "\n" +input[i]+" - "+person[i];
+                data += "\n" +input[i]+" - "+output[i] + " ("+person[i]+")";
                 check=true;
             }
             
