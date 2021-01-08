@@ -1,5 +1,7 @@
 PARSING_LINE
 
+const ver = 0.01;
+
 var sdcard = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
 var path = sdcard+"/ChatBot/BotData/Saves/";
 
@@ -37,7 +39,9 @@ var output = [];
 
 var person = [];
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
-    try{
+    if(msg == !ver){
+        replier.reply(ver);
+    }
     var chat = msg.split(" ");
     if(chat[0]=="!say"){
         var data = msg.replace(chat[0] + " ","");
@@ -113,9 +117,6 @@ break;
     }
     for(var i = 0;i<30;i++){
         if(msg==input[i]) replier.reply(output[i]);
-    }
-    }catch(e){
-        replier.reply(e);
     }
 }
 
