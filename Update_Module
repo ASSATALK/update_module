@@ -39,7 +39,7 @@ var output = [];
 
 var person = [];
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
-    if(msg == !ver){
+    if(msg == "!ver"){
         replier.reply(ver);
     }
     var chat = msg.split(" ");
