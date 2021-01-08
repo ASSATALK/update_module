@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = 0.02;
+const ver = 0.03;
 
 const short = "\u200b".repeat(500);
 
@@ -43,15 +43,25 @@ var person = [];
 
 var comm = ["!ver","!say","!add","!remove","!list","!help"];
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
-	var chat = msg.split(" ");
-	if(chat[0] == "!save"){
-		if(chat[1] == undefined){
-			let data = "저장가능한 목록은 다음과 같습니다!"+short;
-			
-		}
+    var chat = msg.split(" ");
+    if(chat[0] == "!save"){
+    	for(var i =0;i<30;i++){
+	    if(input[i] != undefined){
+	        save("command",input[i]+"COMMA"+output[i]+"COMMA"+person[i]);
+	    }
 	}
-	if(chat[0] == "!load"){
+    }
+    if(chat[0] == "!load"){
+    	var lod = load("command").split("\n");
+	for(var i =0;i<30;i++){
+	    if(lod[i] != undefined){
+	        var data = lod[i].split("COMMA");
+		input[i] = data[0];
+		output[i] = data[1];
+		person[i] = data[2];
+	    }
 	}
+    }
 	
     if(msg == "!ver"){
         replier.reply(ver);
