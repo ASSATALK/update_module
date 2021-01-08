@@ -9,7 +9,7 @@ var path = sdcard+"/ChatBot/BotData/Saves/";
 
 function save(fileName, Data)
 {
-    let filePath = path+fileName,
+    let filePath = path+""+fileName,
         file = new java.io.File(filePath),
         fileWriter = new java.io.FileWriter(file),
         bufferedWriter = new java.io.BufferedWriter(fileWriter);
@@ -20,7 +20,7 @@ function save(fileName, Data)
 
 function read(fileName)
 {
-    let filePath = path+fileName,
+    let filePath = path+""+fileName,
         file = new java.io.File(filePath),
 	    fileReader = new java.io.FileReader(file),
         bufferedReader = new java.io.BufferedReader(fileReader),
