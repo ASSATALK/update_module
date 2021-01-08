@@ -55,7 +55,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	if(chat[0] == "!help"){
 		let data = "명령어 목록"+short;
 		var i = 0;
-		while(1){
+		for(i=0;i<40;i++){
 			if(comm[i] == undefined) break;
 			else data += "\n" + comm[i];
 		}
