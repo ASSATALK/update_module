@@ -1,5 +1,36 @@
 PARSING_LINE
 
+var sdcard = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
+var path = sdcard+"/ChatBot/BotData/Saves/";
+
+function save(fileName, Data)
+{
+    let filePath = path+fileName,
+        file = new java.io.File(filePath),
+        fileWriter = new java.io.FileWriter(file),
+        bufferedWriter = new java.io.BufferedWriter(fileWriter);
+
+   	bufferedWriter.write(new java.lang.String(Data));    
+	bufferedWriter.close();
+};
+
+function read(fileName)
+{
+    let filePath = path+fileName,
+        file = new java.io.File(filePath),
+	    fileReader = new java.io.FileReader(file),
+        bufferedReader = new java.io.BufferedReader(fileReader),
+		fileReadLine = "", fileContent = bufferedReader.readLine();
+
+	while ((fileReadLine = bufferedReader.readLine()) != null)
+	{
+		fileContent	+= "\n" + fileReadLine;
+	}
+	bufferedReader.close();
+
+	return fileContent;
+};
+
 var input = [];
 
 var output = [];
