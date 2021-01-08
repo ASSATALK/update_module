@@ -1,6 +1,8 @@
 PARSING_LINE
 
-const ver = 0.01;
+const ver = 0.02;
+
+const short = "\u200b".repeat(500);
 
 var sdcard = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
 var path = sdcard+"/ChatBot/BotData/Saves/";
@@ -26,7 +28,7 @@ function read(fileName)
 
 	while ((fileReadLine = bufferedReader.readLine()) != null)
 	{
-		fileContent	+= "\n" + fileReadLine;
+		fileContent += "\n" + fileReadLine;
 	}
 	bufferedReader.close();
 
@@ -38,11 +40,33 @@ var input = [];
 var output = [];
 
 var person = [];
+
+var comm = ["!ver","!say","!add","!remove","!list","!help"];
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
+	var chat = msg.split(" ");
+	if(chat[0] == "!save"){
+		if(chat[1] == undefined){
+			let data = "저장가능한 목록은 다음과 같습니다!"+short;
+			
+		}
+	}
+	if(chat[0] == "!load"){
+	}
+	if(chat[0] == "!help"){
+		let data = "명령어 목록"+short;
+		var i = 0;
+		while(1){
+			if(comm[i] == undefined) break;
+			else data += "\n" + comm[i];
+		}
+		if(i == 0) replier.reply("사용가능한 명령어가 없습니다!");
+		else replier.reply(data);
+		
+	}
     if(msg == "!ver"){
         replier.reply(ver);
     }
-    var chat = msg.split(" ");
+    
     if(chat[0]=="!say"){
         var data = msg.replace(chat[0] + " ","");
         replier.reply(data);
@@ -102,7 +126,7 @@ break;
         }
     }
     if(chat[0]=="!list"){
-        var data="사용자 명령어 리스트";
+        var data="사용자 명령어 리스트"+short;
         var check=false;
         for(var i = 0;i<30;i++){
           //replier.reply(input[i]+" "+ output[i] + person[i]);
