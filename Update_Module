@@ -54,7 +54,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply("저장을 완료 했습니다!");
     }
     if(chat[0] == "!load"){
-    	var lod = load("command").split("\n");
+    	var lod = read("command").split("\n");
 	for(var i =0;i<30;i++){
 	    if(lod[i] != undefined){
 	        var data = lod[i].split("COMMA");
