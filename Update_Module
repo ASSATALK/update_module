@@ -46,6 +46,7 @@ function Load(){
     top = lod[0];
     var check = "";
     for(var i = 1;i<=top+1;top++){
+        if(lod[i]==undefined) break;
         var data = lod[i].split("COMMA");
 	SCORE[data[0]] = data[1];
 	NAME[data[0]] = data[2];
