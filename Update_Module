@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "1.0la";
+const ver = "0.98b";
 
 const short = "\u200b".repeat(500);
 
@@ -25,16 +25,16 @@ function Save(){
 	    data += input[i]+"COMMA"+output[i]+"COMMA"+person[i]+"\n";
         }
     }
-    save("command",data);
+    save("command.txt",data);
     data = "";
     data += top+"\n";
     for(var i = 0;i<=top;i++){
     	data += i+"COMMA"+SCORE[i]+"COMMA"+NAME[i]+"\n";
     }
-    save("score",data);
+    save("score.txt",data);
 }
 function Load(){
-    var lod = read("command").split("\n");
+    var lod = read("command.txt").split("\n");
     for(var i =0;i<30;i++){
 	if(lod[i] != undefined){
 	    var data = lod[i].split("COMMA");
@@ -43,7 +43,7 @@ function Load(){
 	    person[i] = data[2];
 	}
     }
-    var lod = read("score").split("\n");
+    var lod = read("score.txt").split("\n");
     top = lod[0];
     for(var i = 1;i<=top+1;top++){
         if(lod[i]==undefined) break;
