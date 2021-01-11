@@ -47,8 +47,8 @@ function Load(){
     while(1){
         if(lod[top]!=undefined){
             var data = lod[top].split("COMMA");
-	    SCORE[top] = data[1];
-	    NAME[top] = data[2];
+	    SCORE[top] = Number(data[0]);
+	    NAME[top] = data[1];
 	    top++;
 	}else{
 	    break;
