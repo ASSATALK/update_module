@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = 0.11;
+const ver = 1.0b;
 
 const short = "\u200b".repeat(500);
 
@@ -24,16 +24,16 @@ function Save(){
 	    data+=input[i]+"COMMA"+output[i]+"COMMA"+person[i]+"\n";
         }
     }
-    save("command.txt",data);
+    save("command",data);
     data = "";
     data+=top+"\n";
     for(var i = 0;i<=top;i++){
     	data+=i+"COMMA"+SCORE[i]+"COMMA"+NAME[i]+"\n";
     }
-    save("score.txt",data);
+    save("score",data);
 }
 function Load(){
-    var lod = read("command.txt").split("\n");
+    var lod = read("command").split("\n");
     for(var i =0;i<30;i++){
 	if(lod[i] != undefined){
 	    var data = lod[i].split("COMMA");
@@ -42,7 +42,7 @@ function Load(){
 	    person[i] = data[2];
 	}
     }
-    var lod = read("score.txt").split("\n");
+    var lod = read("score").split("\n");
     top = lod[0];
     var check = "";
     for(var i = 1;i<=top+1;top++){
@@ -83,6 +83,26 @@ function read(fileName)
 
 var comm = ["!ver","!say","!add","!remove","!list","!help"];
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
+    var sendercode;
+    
+    {
+        var check = false;
+        for(var i = 0;i<=top;i++){
+    	    if(sender == NAME[i]){
+	        SCORE[i]++;
+	        check = true;
+		sendercode = i;
+       	    }
+        }
+        if(check == false){
+	    replier.reply(sender+"님의 고유코드는 " +top+ "입니다! 닉네임을 변경한 경우라면 조현우한테 아가리 터세요!");
+	    NAME[top] = sender;
+	    SCORE[top] = 0;
+	    top++;
+        }
+    }
+
+
     var chat = msg.split(" ");
     if(chat[0] == "!save"){
     	Save();
@@ -102,7 +122,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         replier.reply(data);
     }
     if(chat[0]=="!add"){
-    	if(score < 100){
+    	if(SCORE[sendercode] < 100){
 	    replier.reply("명령어를 추가하기 위해선 100P가 필요합니다!");
 	    return;
 	}
@@ -135,6 +155,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
                 output[i] = data;
                 person[i] = sender;
                 replier.reply("성공!");
+		SCORE[sendercode] -= 100;
                 check = true;
 break;
             }
@@ -194,21 +215,7 @@ break;
     for(var i = 0;i<30;i++){
         if(msg==input[i]) replier.reply(output[i]);
     }
-    {
-        var check = false;
-        for(var i = 0;i<=top;i++){
-    	    if(sender == NAME[i]){
-	        SCORE[i]++;
-	        check = true;
-       	    }
-        }
-        if(check == false){
-	    replier.reply(sender+"님의 고유코드는 " +top+ "입니다! 닉네임을 변경한 경우라면 조현우한테 아가리 터세요!");
-	    NAME[top] = sender;
-	    SCORE[top] = 0;
-	    top++;
-        }
-    }
+    
 }
 
 PARSING_LINE
