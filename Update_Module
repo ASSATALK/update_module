@@ -1,11 +1,15 @@
 PARSING_LINE
 
-const ver = 0.03;
+const ver = 0.10;
 
 const short = "\u200b".repeat(500);
 
 var sdcard = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
 var path = sdcard+"/ChatBot/BotData/Saves/";
+
+var SCORE = [];
+var NAME = [];
+var top = 0;
 
 function save(fileName, Data)
 {
@@ -13,7 +17,6 @@ function save(fileName, Data)
     let file = new java.io.File(filePath),
         fileWriter = new java.io.FileWriter(file),
         bufferedWriter = new java.io.BufferedWriter(fileWriter);
-
    	bufferedWriter.write(new java.lang.String(Data));    
 	bufferedWriter.close();
 };
@@ -116,15 +119,19 @@ break;
         var check = false;
         for(var i = 0;i<30;i++){
             if(input[i]==data){
-                input[i] = undefined;
-                output[i] = undefined;
-                person[i] = undefined;
-                replier.reply("성공!");
+		if(sender==person[i]){
+		    input[i] = undefined;
+                    output[i] = undefined;
+                    person[i] = undefined;
+                    replier.reply("성공!");
+		}else{
+		    replier.reply(input[i] + " 명령어는 "+person[i]+ "님만 삭제할 수 있습니다!");
+		}
                 check = true;
             }
         }
         if(check == false){
-            replier.reply("존재하지 않는 명령어거나 오류 발생");
+            replier.reply("존재하지 않는 명령어입니다!");
         }
     }
     if(chat[0]=="!list"){
@@ -141,8 +148,37 @@ break;
         if(check == true ) replier.reply(data);
         else replier.reply("사용자 명령어가 없습니다.");
     }
+    if(msg == "!score"){
+        var code = -1;
+    	for(var i = 0;i<=top;i++){
+	    if(sender == NAME[i]){
+	    	code = i;
+	    }
+	}
+	if(code == -1){
+	    replier.reply(sender + "님의 코드를 알수없어요. 조현우한테 아갈터세요!");
+	    return;
+	}else{
+	    replier.reply(sender + " - " +SCORE[i]+"P");
+	}
+    }
     for(var i = 0;i<30;i++){
         if(msg==input[i]) replier.reply(output[i]);
+    }
+    {
+        var check = false;
+        for(var i = 0;i<=top;i++){
+    	    if(sender == NAME[i]){
+	        SCORE[i]++;
+	        check = true;
+       	    }
+        }
+        if(check == false){
+	    replier.reply(sender+"님의 고유코드는 " +top+ "입니다! 닉네임을 변경한 경우라면 조현우한테 아가리 터세요!");
+	    NAME[top] = sender;
+	    SCORE[top] = 0;
+	    top++;
+        }
     }
 }
 
