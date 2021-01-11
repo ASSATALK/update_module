@@ -110,7 +110,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     }
     if(chat[0] == "!load"){
     	Load();
-	replier.reply("로딩을 완료 했습니다!" + sd);
+	replier.reply("로딩을 완료 했습니다!");
     }
 	
     if(msg == "!ver"){
