@@ -28,7 +28,7 @@ function Save(){
     save("command.txt",data);
     data = "";
     data += top+"\n";
-    for(var i = 0;i<=top;i++){
+    for(var i = 0;i<top;i++){
     	data += i+"COMMA"+SCORE[i]+"COMMA"+NAME[i]+"\n";
     }
     save("score.txt",data);
