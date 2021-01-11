@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "0.99";
+const ver = "0.99a";
 
 const short = "\u200b".repeat(500);
 
