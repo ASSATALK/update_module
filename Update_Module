@@ -50,6 +50,8 @@ function Load(){
 	    SCORE[top] = data[1];
 	    NAME[top] = data[2];
 	    top++;
+	}else{
+	    break;
 	}
     }
 }
