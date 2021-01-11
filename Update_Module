@@ -27,9 +27,8 @@ function Save(){
     }
     save("command.txt",data);
     data = "";
-    data += top+"\n";
     for(var i = 0;i<top;i++){
-    	data += i+"COMMA"+SCORE[i]+"COMMA"+NAME[i]+"\n";
+    	data += SCORE[i]+"COMMA"+NAME[i]+"\n";
     }
     save("score.txt",data);
 }
@@ -44,12 +43,13 @@ function Load(){
 	}
     }
     var lod = read("score.txt").split("\n");
-    top = Number(lod[0]);
-    for(var i = 1;i<top+1;top++){
-        if(lod[i]!=undefined){
-            var data = lod[i].split("COMMA");
-	    SCORE[i-1] = data[1];
-	    NAME[i-1] = data[2];
+    top = 0;
+    while(1){
+        if(lod[top]!=undefined){
+            var data = lod[top].split("COMMA");
+	    SCORE[top] = data[1];
+	    NAME[top] = data[2];
+	    top++;
 	}
     }
 }
