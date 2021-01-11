@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "1.0a";
+const ver = "1.0la";
 
 const short = "\u200b".repeat(500);
 
@@ -21,14 +21,15 @@ function Save(){
     var data ="";
     for(var i =0;i<30;i++){
 	if(input[i] != undefined){
-	    data+=input[i]+"COMMA"+output[i]+"COMMA"+person[i]+"\n";
+	    if(input[i]==undefined) break;
+	    data += input[i]+"COMMA"+output[i]+"COMMA"+person[i]+"\n";
         }
     }
     save("command",data);
     data = "";
-    data+=top+"\n";
+    data += top+"\n";
     for(var i = 0;i<=top;i++){
-    	data+=i+"COMMA"+SCORE[i]+"COMMA"+NAME[i]+"\n";
+    	data += i+"COMMA"+SCORE[i]+"COMMA"+NAME[i]+"\n";
     }
     save("score",data);
 }
@@ -44,13 +45,11 @@ function Load(){
     }
     var lod = read("score").split("\n");
     top = lod[0];
-    var check = "";
     for(var i = 1;i<=top+1;top++){
         if(lod[i]==undefined) break;
         var data = lod[i].split("COMMA");
-	SCORE[data[0]] = data[1];
-	NAME[data[0]] = data[2];
-	if(data[0]!=i) check += "ER" + i;
+	SCORE[i-1] = data[1];
+	NAME[i-1] = data[2];
     }
 }
 
@@ -62,15 +61,17 @@ function save(fileName, Data)
         bufferedWriter = new java.io.BufferedWriter(fileWriter);
    	bufferedWriter.write(new java.lang.String(Data));    
 	bufferedWriter.close();
+	
+   return;
 };
 
 function read(fileName)
 {
     let filePath = path+""+fileName,
         file = new java.io.File(filePath),
-	    fileReader = new java.io.FileReader(file),
+	fileReader = new java.io.FileReader(file),
         bufferedReader = new java.io.BufferedReader(fileReader),
-		fileReadLine = "", fileContent = bufferedReader.readLine();
+	fileReadLine = "", fileContent = bufferedReader.readLine();
 
 	while ((fileReadLine = bufferedReader.readLine()) != null)
 	{
@@ -78,10 +79,8 @@ function read(fileName)
 	}
 	bufferedReader.close();
 
-	return fileContent;
+return fileContent;
 };
-
-var comm = ["!ver","!say","!add","!remove","!list","!help"];
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
     var sendercode;
     
