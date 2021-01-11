@@ -159,7 +159,7 @@ break;
 	    replier.reply(sender + "님의 코드를 알수없어요. 조현우한테 아갈터세요!");
 	    return;
 	}else{
-	    replier.reply(sender + " - " +SCORE[i]+"P");
+	    replier.reply(sender + " - " +SCORE[code]+"P");
 	}
     }
     for(var i = 0;i<30;i++){
