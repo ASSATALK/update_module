@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "0.98b";
+const ver = "0.99";
 
 const short = "\u200b".repeat(500);
 
@@ -45,7 +45,7 @@ function Load(){
     }
     var lod = read("score.txt").split("\n");
     top = lod[0];
-    for(var i = 1;i<=top+1;top++){
+    for(var i = 1;i<top+1;top++){
         if(lod[i]==undefined) break;
         var data = lod[i].split("COMMA");
 	SCORE[i-1] = data[1];
