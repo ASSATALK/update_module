@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = 0.10;
+const ver = 0.11;
 
 const short = "\u200b".repeat(500);
 
@@ -10,6 +10,48 @@ var path = sdcard+"/ChatBot/BotData/Saves/";
 var SCORE = [];
 var NAME = [];
 var top = 0;
+
+
+var input = [];
+var output = [];
+var person = [];
+
+
+function Save(){
+    var data ="";
+    for(var i =0;i<30;i++){
+	if(input[i] != undefined){
+	    data+=input[i]+"COMMA"+output[i]+"COMMA"+person[i]+"\n";
+        }
+    }
+    save("command",data);
+    data = "";
+    data+=top+"\n";
+    for(var i = 0;i<=top;i++){
+    	data+=i+"COMMA"+SCORE[i]+"COMMA"+NAME[i]+"\n";
+    }
+    save("score",data);
+}
+function Load(){
+    var lod = read("command").split("\n");
+    for(var i =0;i<30;i++){
+	if(lod[i] != undefined){
+	    var data = lod[i].split("COMMA");
+	    input[i] = data[0];
+	    output[i] = data[1];
+	    person[i] = data[2];
+	}
+    }
+    var lod = read("score").split("\n");
+    top = lod[0];
+    var check = "";
+    for(var i = 1;i<=top+1;top++){
+        var data = lod[i].split("COMMA");
+	SCORE[data[0]] = data[1];
+	NAME[data[0]] = data[2];
+	if(data[0]!=i) check += "ER" + i;
+    }
+}
 
 function save(fileName, Data)
 {
@@ -38,34 +80,16 @@ function read(fileName)
 	return fileContent;
 };
 
-var input = [];
-
-var output = [];
-
-var person = [];
-
 var comm = ["!ver","!say","!add","!remove","!list","!help"];
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
     var chat = msg.split(" ");
     if(chat[0] == "!save"){
-    	for(var i =0;i<30;i++){
-	    if(input[i] != undefined){
-	        save("command",input[i]+"COMMA"+output[i]+"COMMA"+person[i]);
-	    }
-	}
+    	Save();
 	replier.reply("저장을 완료 했습니다!");
     }
     if(chat[0] == "!load"){
-    	var lod = read("command").split("\n");
-	for(var i =0;i<30;i++){
-	    if(lod[i] != undefined){
-	        var data = lod[i].split("COMMA");
-		input[i] = data[0];
-		output[i] = data[1];
-		person[i] = data[2];
-	    }
-	}
-	replier.reply("로딩을 완료 했습니다!");
+    	var sd = Load();
+	replier.reply("로딩을 완료 했습니다!" + sd);
     }
 	
     if(msg == "!ver"){
@@ -77,6 +101,10 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         replier.reply(data);
     }
     if(chat[0]=="!add"){
+    	if(score < 100){
+	    replier.reply("명령어를 추가하기 위해선 100P가 필요합니다!");
+	    return;
+	}
         if(chat[1]==undefined){
             replier.reply("명령어가 존재하지 않습니다!");
             return;
