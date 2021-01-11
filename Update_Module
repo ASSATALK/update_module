@@ -44,7 +44,7 @@ function Load(){
 	}
     }
     var lod = read("score.txt").split("\n");
-    top = lod[0];
+    top = Number(lod[0]);
     for(var i = 1;i<top+1;top++){
         if(lod[i]!=undefined){
             var data = lod[i].split("COMMA");
