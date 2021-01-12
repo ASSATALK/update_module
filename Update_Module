@@ -23,6 +23,7 @@ var vote_cast = [];
 for(let i = 0; i < 10;i ++){
     vote_cast[i] = [];
     vote_able[i] = true;
+    vote[i] = false;
 }
 
 function Save(){
