@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.0";
+const ver = "깡통봇 1.1";
 
 const short = "\u200b".repeat(500);
 
@@ -93,9 +93,10 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply("저장을 완료 했습니다!");
 	return;
     }
-    if(chat[0] == "!load"){
+    if(chat[0] == "!refresh"){
+    	Save();
     	Load();
-	replier.reply("로딩을 완료 했습니다!\n code - "+top);
+	replier.reply("을 완료 했습니다!\n code - "+top);
 	return;
     }
     {
