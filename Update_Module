@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.4";
+const ver = "깡통봇 1.5b";
 
 const short = "\u200b".repeat(500);
 
@@ -120,15 +120,17 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	        let O = vote_check(i);
 	  	X = O % 100;
 		O = (O - X)/100;
+		let data = "";
 		if(O>=((top/2)+(top%2))){
-		    replier.reply(NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!");
+		    data += NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!\n"
 		    vote[i] = false;
 		}else{
-		    replier.reply(NAME[i]+"님의 투표가 O "+O+"표, X "+X+"표로 부결되었습니다!");
+		     data += NAME[i]+"님의 투표가 O "+O+"표, X "+X+"표로 부결되었습니다!\n";
 		    vote[i] = false;
 		}
 	    }
 	}
+	replier.reply(data);
     }
     time_hour = hour;
     time_date = minute;
@@ -212,22 +214,24 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    	replier.reply("등록되지 않은 코드이거나 대상의 투표가 진행되고 있지 않습니다!");
 	    }
 	}else if(chat[1] == "status"){
+	    let data="";
 	    for(let i = 0;i<top;i++){
 	        if(vote[i] == true){
 	            let O = vote_check(i);
 		    X = O % 100;
 		    O = (O - X)/100;
 		    if(O>=((top/2)+(top%2))){
-		        replier.reply(NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!");
+		         data += NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!\n";
 		        vote[i] = false;
 		    }else if(X>=((top/2)+(top%2))){
-		        replier.reply(NAME[i]+"님의 투표가 X "+X+"표로 취소되었습니다!");
+		         data += NAME[i]+"님의 투표가 X "+X+"표로 취소되었습니다!\n";
 			vote[i] = false;
 		    }else{
-		    	replier.reply(NAME[i]+"님의 투표가 O "+O+"표, X "+X+"표로 진행중입니다!");
+		    	 data += NAME[i]+"님의 투표가 O "+O+"표, X "+X+"표로 진행중입니다!\n";
 		    }
  	        }
 	    }
+	    replier.reply(data);
 	}else{
 	    replier.reply("투표를 추가하시려면 !vote add (투표 대상의 코드)를, 현재 진행중인 투표에 참가하시려면 !vote cast (투표 대상의 코드) (O / X)를, 진행중인 투표의 상태를 확인하시려면 !vote status를 입력해 주세요!");
 	}
