@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.1";
+const ver = "깡통봇 1.2";
 
 const short = "\u200b".repeat(500);
 
@@ -16,6 +16,11 @@ var input = [];
 var output = [];
 var person = [];
 
+var vote_able = [];
+var vote = [];
+var vote_cast = [];
+
+for(let i = 0; i < 10;i ++) votecast[i] = [];
 
 function Save(){
     var data ="";
@@ -84,8 +89,41 @@ function read(fileName)
 
 return fileContent;
 };
-function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
 
+function vote_check(code){
+	var O = 0;
+	var X = 0;
+	for(let i = 0;i<top;i++){
+		if(vote_cast[code][i] == 1){
+			O++;
+		}
+		if(vote_cast[code][i] == 2){
+			X++;
+		}
+	}
+	return ((O * 100)+X);
+};
+var time_hour;
+var time_min;
+function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
+    let date = new Date(),
+        hour = date.getHours(),
+        minute = date.getMinutes();
+    if(hour < time_hour||msg == "!test"){
+    	for(let i = 0;i<top;i++){
+	    vote_able[i] = true;
+	    if(vote[i] == true){
+	        let O = vote_check(i)/100;
+		if(O>=((top/2)+(top%2))){
+		    replier.reply(NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!");
+		}else{
+		    replier.reply(NAME[i]+"님의 투표가 O "+O+"표로 부결되었습니다!");
+		}
+	    }
+	}
+    }
+    time_hour = hour;
+    time_date = minute;
     var chat = msg.split(" ");
     var sendercode;
     if(chat[0] == "!save"){
@@ -93,7 +131,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply("저장을 완료 했습니다!");
 	return;
     }
-    if(chat[0] == "!load"){
+    if(chat[0] == "!load"&&room == "조현우"){
     	Load();
 	replier.reply("로딩을 완료 했습니다!");
 	return;
@@ -101,7 +139,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     if(chat[0] == "!refresh"){
     	Save();
     	Load();
-	replier.reply("을 완료 했습니다!\n code - "+top);
+	replier.reply("새로고침을 완료 했습니다!\n code - "+top);
 	return;
     }
     {
@@ -121,7 +159,55 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         }
     }
 
-
+    if(chat[0] == "!code"){
+    	let data = "코드 목록"+short+"\n";
+	for(let i = 0;i<top;i++) data += "코드 : "+i+" - "+NAME[i]+"\n";
+	replier.reply(data);
+    }
+    
+    if(chat[0] == "!vote"){
+        if(chat[1] == "add"){
+	    if(vote_able[sendercode] == true){
+	        if(chat[2] != undefined && NAME[chat[2]] != undefined){
+	            if(vote[chat[2]] == false){
+		        for(let i = 0;i<top;i++){
+			    vote_cast[chat[2]][i] = 0;
+			}
+	                vote_able[sendercode] = false;
+			vote[chat[2]] = true;
+			replier.reply(NAME[chat[2]]+"님의 투표를 시작했습니다! 투표는 내일 0시 0분이후 채팅이 발신 되었을 때 종료됩니다!\n투표의 진행상황은 저장되지 않습니다! 업데이트나 새로고침할때 주의해 주십시오!");
+		    }else{
+		        replier.reply(NAME[chat[2]]+"님의 투표는 이미 진행중입니다!");
+	       	    }
+		}else{
+		    replier.reply("등록 되지 않은 코드 입니다!");
+		}
+	    }else{
+	    	replier.reply("이미 투표를 추가하셨습니다!");
+	    }
+	}else if(chat[1] == "cast"){
+	    if(chat[2] != undefined && NAME[chat[2]] != undefined&&vote[chat[2]] == true){
+	    	if(vote_cast[chat[2]][sendercode] == 0||vote_cast[chat[2]][sendercode] == undefined){
+		   if(chat[3] == "O"){
+		       vote_cast[chat[2]][sendercode] = 1;
+		       replier.reply(NAME[chat[2]]+"님의 투표에 O를 선택하셨습니다! 후에 변경할 수 없는 점 유념해 주십시오!");
+		   }else if(chat[3] == "X"){
+		       vote_cast[chat[2]][sendercode] = 2;
+		       replier.reply(NAME[chat[2]]+"님의 투표에 X를 선택하셨습니다! 후에 변경할 수 없는 점 유념해 주십시오!");
+		   }else{
+		       replier.reply("투표는 O 또는 X로 참가 할수 있습니다!");
+		   }
+	    	}else{
+	       	    replier.reply("이미 투표하셨습니다!");
+	    	}
+	    }else{
+	    	replier.reply("등록되지 않은 코드이거나 대상의 투표가 진행되고 있지 않습니다!");
+	    }
+	}else{
+	    replier.reply("투표를 추가하시려면 !vote add (투표 대상의 코드)를, 현재 진행중인 투표에 참가하시려면 !vote cast (투표 대상의 코드) (O / X)를 입력해주세요!");
+	}
+    }
+    
     if(chat[0] == "!rank"){
         let rank = [],
 	    temp = [],
