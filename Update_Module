@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "0.99ab";
+const ver = "0.9999";
 
 const short = "\u200b".repeat(500);
 
@@ -86,7 +86,16 @@ return fileContent;
 };
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
     var sendercode;
-    
+    if(chat[0] == "!save"){
+    	Save();
+	replier.reply("저장을 완료 했습니다!");
+	return;
+    }
+    if(chat[0] == "!load"){
+    	Load();
+	replier.reply("로딩을 완료 했습니다!\n code - "+top);
+	return;
+    }
     {
         var check = false;
         for(var i = 0;i<=top;i++){
@@ -109,7 +118,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     if(chat[0] == "!rank"){
         let rank = [],
 	    temp = [],
-	    max = 0;
+	    max = -1;
 	for(let i = 0;i<top;i++) temp[i] = false;
 	for(let i = 0;i<top;i++){
 	    for(let j = 0;j<top;j++){
@@ -119,19 +128,11 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 		    max = SCORE[j];
 		}
 	    }
-	    max = 0;
+	    max = -1;
 	}
-	let data = "랭크"+short;
+	let data = "랭크"+short+"\n";
     	for(let i = 0;i<top;i++) data += (i+1)+"등 : "+NAME[rank[i]]+" - "+SCORE[rank[i]]+"P\n";
 	replier.reply(data);
-    }
-    if(chat[0] == "!save"){
-    	Save();
-	replier.reply("저장을 완료 했습니다!");
-    }
-    if(chat[0] == "!load"){
-    	Load();
-	replier.reply("로딩을 완료 했습니다!"+top);
     }
 	
     if(msg == "!ver"){
