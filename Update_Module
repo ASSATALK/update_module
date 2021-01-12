@@ -114,6 +114,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         hour = date.getHours(),
         minute = date.getMinutes();
     if(hour < time_hour||msg == "!test"){
+        let data = "투표 결과"+short+"\n";
         replier.reply("좋은 하루!");
     	for(let i = 0;i<top;i++){
 	    vote_able[i] = true;
@@ -121,7 +122,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	        let O = vote_check(i);
 	  	X = O % 100;
 		O = (O - X)/100;
-		let data = "투표 결과"+short+"\n";
+		
 		if(O>=top/2){
 		    data += NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!\n"
 		    vote[i] = false;
