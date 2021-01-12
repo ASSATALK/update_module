@@ -120,7 +120,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	        let O = vote_check(i);
 	  	X = O % 100;
 		O = (O - X)/100;
-		let data = "";
+		let data = "투표 결과"+short+"\n";
 		if(O>=((top/2)+(top%2))){
 		    data += NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!\n"
 		    vote[i] = false;
@@ -214,7 +214,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    	replier.reply("등록되지 않은 코드이거나 대상의 투표가 진행되고 있지 않습니다!");
 	    }
 	}else if(chat[1] == "status"){
-	    let data="";
+	    let data="투표 현황 및 결과"+short+"\n";
 	    for(let i = 0;i<top;i++){
 	        if(vote[i] == true){
 	            let O = vote_check(i);
