@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.5b";
+const ver = "깡통봇 1.1R";
 
 const short = "\u200b".repeat(500);
 
@@ -114,6 +114,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         hour = date.getHours(),
         minute = date.getMinutes();
     if(hour < time_hour||msg == "!test"){
+        replier.reply("좋은 하루!");
     	for(let i = 0;i<top;i++){
 	    vote_able[i] = true;
 	    if(vote[i] == true){
