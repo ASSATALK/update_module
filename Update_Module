@@ -85,6 +85,8 @@ function read(fileName)
 return fileContent;
 };
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
+
+    var chat = msg.split(" ");
     var sendercode;
     if(chat[0] == "!save"){
     	Save();
@@ -114,7 +116,6 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     }
 
 
-    var chat = msg.split(" ");
     if(chat[0] == "!rank"){
         let rank = [],
 	    temp = [],
