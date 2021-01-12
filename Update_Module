@@ -20,7 +20,7 @@ var vote_able = [];
 var vote = [];
 var vote_cast = [];
 
-for(let i = 0; i < 10;i ++) votecast[i] = [];
+for(let i = 0; i < 10;i ++) vote_cast[i] = [];
 
 function Save(){
     var data ="";
