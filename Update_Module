@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "0.99a";
+const ver = "0.99ab";
 
 const short = "\u200b".repeat(500);
 
@@ -106,6 +106,25 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 
 
     var chat = msg.split(" ");
+    if(chat[0] == "!rank"){
+        let rank = [],
+	    temp = [],
+	    max = 0;
+	for(let i = 0;i<top;i++) temp[i] = true;
+	for(let i = 0;i<top;i++){
+	    for(let j = 0;j<top;j++){
+	    	if(max < SCORE[j]&&temp[j] == false){
+		    temp[j] = true;
+		    rank[i] = j;
+		    max = SCORE[j];
+		}
+	    }
+	    max = 0;
+	}
+	let data = "랭크"+short;
+    	for(let i = 0;i<top;i++) data += (i+1)+"등 : "+NAME[rank[i]]+" - "+SCORE[rank[i]]+"P\n";
+	replier.reply(data);
+    }
     if(chat[0] == "!save"){
     	Save();
 	replier.reply("저장을 완료 했습니다!");
@@ -153,11 +172,11 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         check = false;
         for(var i = 0;i<30;i++){
             if(input[i]==undefined&&data!=""){
+	    	SCORE[sendercode] -= 100;
                 input[i] = chat[1];
                 output[i] = data;
                 person[i] = sender;
-                replier.reply("성공!");
-		SCORE[sendercode] -= 100;
+                replier.reply("성공!\n"+sender+" - "+SCORE[sendercode]+"P");
                 check = true;
 break;
             }
