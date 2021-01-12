@@ -110,7 +110,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         let rank = [],
 	    temp = [],
 	    max = 0;
-	for(let i = 0;i<top;i++) temp[i] = true;
+	for(let i = 0;i<top;i++) temp[i] = false;
 	for(let i = 0;i<top;i++){
 	    for(let j = 0;j<top;j++){
 	    	if(max < SCORE[j]&&temp[j] == false){
