@@ -93,6 +93,11 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply("저장을 완료 했습니다!");
 	return;
     }
+    if(chat[0] == "!load"){
+    	Load();
+	replier.reply("로딩을 완료 했습니다!");
+	return;
+    }
     if(chat[0] == "!refresh"){
     	Save();
     	Load();
