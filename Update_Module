@@ -125,11 +125,12 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply(NAME[i] + " - " +SCORE[i]);
 	    for(let j = 0;j<top;j++){
 	    	if(max < SCORE[j]&&temp[j] == false){
-		    temp[j] = true;
+		    
 		    rank[i] = j;
 		    max = SCORE[j];
 		}
 	    }
+	    temp[rank[i]] = true;
 	    max = -1;
 	}
 	let data = "랭크"+short+"\n";
