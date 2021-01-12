@@ -122,6 +122,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    max = -1;
 	for(let i = 0;i<top;i++) temp[i] = false;
 	for(let i = 0;i<top;i++){
+	replier.reply(NAME[i] + " - " +SCORE[i]);
 	    for(let j = 0;j<top;j++){
 	    	if(max < SCORE[j]&&temp[j] == false){
 		    temp[j] = true;
