@@ -121,7 +121,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	  	X = O % 100;
 		O = (O - X)/100;
 		let data = "투표 결과"+short+"\n";
-		if(O>=((top/2)+(top%2))){
+		if(O>=top/2){
 		    data += NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!\n"
 		    vote[i] = false;
 		}else{
@@ -220,10 +220,10 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	            let O = vote_check(i);
 		    X = O % 100;
 		    O = (O - X)/100;
-		    if(O>=((top/2)+(top%2))){
+		    if(O>=top/2){
 		         data += NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!\n";
 		        vote[i] = false;
-		    }else if(X>=((top/2)+(top%2))){
+		    }else if(X>=top/2){
 		         data += NAME[i]+"님의 투표가 X "+X+"표로 취소되었습니다!\n";
 			vote[i] = false;
 		    }else{
