@@ -195,7 +195,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 		    	j++;
 			if(pars[i-j]!=undefined&&pars[i-j].indexOf("src=")!=-1){
 			    for(let k = 1;k<=6;k++){
-			        text+=pars[i-j-k].(trim)+"\n";
+			        text+=pars[i-j-k].trim()+"\n";
 			    }
 			    break;
 			}else if(pars[i-j]==undefined){
