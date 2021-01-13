@@ -171,6 +171,15 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         }
     }
 
+    if(chat[0]=="!pars"){
+        let prs = Utils.getWebText("http://fow.kr/find/"+chat[1],true);
+	if(prs.indexOf("그런 이름의 사용자는 없습니다.")!=-1) replier.reply("소환사를 찾을 수 없습니다!");
+	else{
+	    let data = prs.split("▼");
+	    replier.reply(prs.indexOf("▼"));
+	}
+    }
+    
     if(chat[0] == "!code"){
     	let data = "코드 목록"+short+"\n";
 	for(let i = 0;i<top;i++) data += "코드 : "+i+" - "+NAME[i]+"\n";
