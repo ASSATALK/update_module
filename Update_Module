@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.1R";
+const ver = "깡통봇 1.2";
 
 const short = "\u200b".repeat(500);
 
@@ -151,7 +151,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     if(chat[0] == "!refresh"){
     	Save();
     	Load();
-	replier.reply("새로고침을 완료 했습니다!\n code - "+top);
+	replier.reply("새로고침을 완료 했습니다!\ncode - "+top);
 	return;
     }
     {
@@ -171,9 +171,10 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         }
     }
 
-    if(chat[0]=="!pars"){
+    if(chat[0]=="!lol"){
         let prs = Utils.getWebText("http://fow.kr/find/"+chat[1],true);
-	if(prs.indexOf("DB로 부터 정보를 읽어오고 있습니다.")!=-1) replier.reply("전적을 불러올 수 없습니다!");
+	if(chat[1] == undefined) replier.reply("!lol (소환사 이름) 을 치시면 전적을 볼 수 있습니다!\n이 기능은 현재 완성되지 않았습니다 보기 불편해도 참으세요!");
+	else if(prs.indexOf("DB로 부터 정보를 읽어오고 있습니다.")!=-1) replier.reply("전적을 불러올 수 없습니다!");
 	else{
 	    let data = prs.split("LV/G/CS");
 	    let dt=data[2].split("최근게임 더보기");
@@ -187,7 +188,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    let i = 0;
 	    let text = chat[1]+"의 전적"+short+"\n";
 	    
-	    replier.reply("START");
+	    //replier.reply("START");
 	    while(1){
 	        if(pars[i]!=undefined&&pars[i].indexOf("▼")!=-1){
 		let txt = "";
@@ -210,16 +211,16 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 			    }
 			}
 		    }
-		    while(1){
+		    /*while(1){
 		        if(txt.indexOf(".")==-1) break;
 			txt = substring(0,txt.indexOf(".")+3)+" "+substring(txt.indexOf(".")+3,txt.length);
-		    }
+		    }*/
 		    text+=txt.replace(/">/g,"")+"\n";
 		}else if(pars[i] == undefined) break;
 		i++;
 		
 	    }
-	    replier.reply(i);
+	    //replier.reply(i);
 	    replier.reply(text);
 	}
     }
