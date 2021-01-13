@@ -173,17 +173,39 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 
     if(chat[0]=="!pars"){
         let prs = Utils.getWebText("http://fow.kr/find/"+chat[1],true);
-	replier.reply(prs);
 	if(prs.indexOf("DB로 부터 정보를 읽어오고 있습니다.")!=-1) replier.reply("전적을 불러올 수 없습니다!");
 	else{
-	    let dt = prs.split("LV/G/CS");
-	    let data=dt[2];
+	    let data = prs.split("LV/G/CS");
+	    let dt=data[2].split("최근게임 더보기");
+	    data = dt[0];
 	    dt = null;
 	    if(data==undefined){
 	    	replier.reply("전적을 불러올수 없습니다!");
 		return;
 	    }
-	    replier.reply(data);
+	    let pars = data.split("\n");
+	    let i = 0;
+	    let text = "전적"+short;
+	    while(1){
+	        if(pars[i]!=undefined&&pars[i].indexOf("▼")!=-1){
+	            let j = 0,
+		    	check = false;
+		    while(1){
+		    	j++;
+			if(pars[i-j]!=undefined&&pars[i-j].indexOf("src=")!=-1){
+			    for(let k = 1;k<=6;k++){
+			        text+=pars[i-j-k]+"\n";
+			    }
+			    break;
+			}else if(pars[i-j]==undefined){
+			    break;
+			}else{
+			    text+=pars[i-j]+"\n";
+			}
+		    }
+		}
+	    }
+	    replier.reply(text);
 	}
     }
     
