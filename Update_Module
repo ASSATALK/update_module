@@ -185,10 +185,12 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    }
 	    let pars = data.split("\n");
 	    let i = 0;
-	    let text = "의 전적"+short+"\n";
+	    let text = chat[1]+"의 전적"+short+"\n";
+	    
 	    replier.reply("START");
 	    while(1){
 	        if(pars[i]!=undefined&&pars[i].indexOf("▼")!=-1){
+		let txt = "";
 	            let j = 0,
 		    	check = false;
 		    while(1){
@@ -196,7 +198,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 			if(pars[i-j]!=undefined&&pars[i-j].indexOf("src=")!=-1){
 			    for(let k = 1;k<=6;k++){
 			        if(pars[i-j-k].trim()!=""&&pars[i-j-k].trim()!=undefined&&pars[i-j-k].trim()!="\n"){
-			            text+=pars[i-j-k].trim()+" ";
+			            txt=pars[i-j-k].trim()+" "+txt;
 			        }
 			    }
 			    break;
@@ -204,13 +206,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 			    break;
 			}else{
 			    if(pars[i-j].trim()!=""&&pars[i-j].trim()!=undefined&&pars[i-j].trim()!="\n"){
-			            text+=pars[i-j].trim()+" ";
-			        }
+			        txt=pars[i-j].trim()+" "+txt;
+			    }
 			}
 		    }
+		    text+=txt+"\n";
 		}else if(pars[i] == undefined) break;
 		i++;
-		text+="\n";
+		
 	    }
 	    replier.reply(i);
 	    replier.reply(text);
