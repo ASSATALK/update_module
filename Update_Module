@@ -186,6 +186,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    let pars = data.split("\n");
 	    let i = 0;
 	    let text = "전적"+short;
+	    replier.reply("START");
 	    while(1){
 	        if(pars[i]!=undefined&&pars[i].indexOf("▼")!=-1){
 	            let j = 0,
@@ -203,9 +204,10 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 			    text+=pars[i-j]+"\n";
 			}
 		    }
-		}
+		}else if(pars[i] == undefined) break;
 		i++;
 	    }
+	    replier.reply(i);
 	    replier.reply(text);
 	}
     }
