@@ -78,8 +78,7 @@ function Load(){
     while(1){
     replier.reply(lod[i]);
         if(i >= top) break;
-	
-	else if(lod[i] == "ICOMMAI"||lod[i]== undefined||lod[i]=="") i++;
+	if(lod[i] == "ICOMMAI"||lod[i]== undefined||lod[i]=="") i++;
 	else mail[i]+=lod[i]+"\n";
 	
     }
