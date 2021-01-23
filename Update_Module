@@ -45,7 +45,7 @@ function Save(){
     data = "";
     for(var i = 0;i<top;i++){
         if(mail[i] == undefined) mail[i] = "";
-        data+=mail[i]+"\nICOMMAI\n";
+        data+=mail[i].replace(/\n/g,"SLASHN")+"\n";
     }
     save("mail.txt",data);
 }
@@ -75,12 +75,8 @@ function Load(){
     if(load == undefined) return;
     var lod = load.split("\n");
     var i = 0;
-    while(1){
-    replier.reply(lod[i]);
-        if(i >= top) break;
-	if(lod[i] == "ICOMMAI"||lod[i]== undefined||lod[i]=="") i++;
-	else mail[i]+=lod[i]+"\n";
-	
+    for(let i = 0;i<top;i++){
+    	mail[i] = lod[i].replace(/SLASHN/g,"\n");
     }
 }
 
