@@ -219,7 +219,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 		return;
 	    }
             if(mail[chat[1]] == undefined) mail[chat[1]] = "";
-	    mail[chat[1]] += sender + "님의 메시지 : "+data+"\n";
+	    mail[chat[1]] += sender + "님의 메일 : "+data+"\n";
 	    replier.reply("성공적으로 메일을 보냈습니다!");
 	}else replier.reply("!mail (메일 수신자 코드) <메일 내용> 을 적으시면 수신자가 카톡을 쳤을때 메일을 전송해 드립니다!");
     }
