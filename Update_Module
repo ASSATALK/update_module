@@ -42,6 +42,11 @@ function Save(){
     	data += SCORE[i]+"COMMA"+NAME[i]+"\n";
     }
     save("score.txt",data);
+    data = "";
+    for(var i = 0;i<top;i++){
+        data+=mail[i]+"\nICOMMAI\n";
+    }
+    save("mail.txt",data);
 }
 function Load(){
     var lod = read("command.txt").split("\n");
@@ -64,6 +69,13 @@ function Load(){
 	}else{
 	    break;
 	}
+    }
+    var lod = read("mail.txt").split("\n");
+    var i = 0;
+    while(1){
+        if(lod[i] == undefined) break;
+	else if(lod[i] == "ICOMMAI") i++;
+	else mail[i]+=lod[i]+"\n";
     }
 }
 
@@ -200,7 +212,12 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    	replier.reply("알 수 없는 코드입니다!");
 		return;
 	    }
-            var data = msg.replace(chat[0] + " " + chat[1] + " ","");
+	    var data = msg.replace(chat[0] + " " + chat[1] + " ","");
+	    if(chat[2]==undefined){
+	    	replier.reply("메일의 내용을 작성해 주십시오!");
+		return;
+	    }
+            
 	    mail[chat[1]] += sender + "님의 메시지 : "+data+"\n";
 	}else replier.reply("!mail (메일 수신자 코드) <메일 내용> 을 적으시면 수신자가 카톡을 쳤을때 메일을 전송해 드립니다!");
     }
