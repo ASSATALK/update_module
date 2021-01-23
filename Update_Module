@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.3";
+const ver = "깡통봇 1.3a";
 
 const short = "\u200b".repeat(500);
 
@@ -70,7 +70,9 @@ function Load(){
 	    break;
 	}
     }
-    var lod = read("mail.txt").split("\n");
+    var load = read("mail.txt");
+    if(load == undefined) return;
+    var lod = load.split("\n");
     var i = 0;
     while(1){
         if(lod[i] == undefined) break;
