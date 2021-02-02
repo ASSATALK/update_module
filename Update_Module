@@ -132,6 +132,7 @@ var save_chat = true;
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
     save_cnt++;
     if(save_cnt >= save_cnt_max){
+        save_cnt = 0;
     	Save();
 	if(save_chat == true) replier.reply("자동저장 되었습니다!");
     }
