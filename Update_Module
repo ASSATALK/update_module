@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.4";
+const ver = "깡통봇 1.5";
 
 const short = "\u200b".repeat(500);
 
@@ -124,7 +124,17 @@ function vote_check(code){
 };
 var time_hour;
 var time_min;
+
+var save_cnt = 0;
+var save_cnt_max = 10;
+var save_chat = true;
+
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
+    save_cnt++;
+    if(save_cnt >= save_cnt_max){
+    	Save();
+	if(save_chat == true) replier.reply("자동저장 되었습니다!");
+    }
     let date = new Date(),
         hour = date.getHours(),
         minute = date.getMinutes();
@@ -156,8 +166,17 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     var chat = msg.split(" ");
     var sendercode;
     if(chat[0] == "!save"){
-    	Save();
-	replier.reply("저장을 완료 했습니다!");
+        if(chat[1] == "count"){
+	    if(chat[2] != undefined){
+	    	save_cnt_max = Number(chat[2]);
+	    }
+	}else if(chat[1] == "chat"){
+	    if(chat[2] == "ON") save_chat = true;
+	    else if(chat[2] == "false") save_chat = false;
+	}else{
+            Save();
+	    replier.reply("저장을 완료 했습니다!");
+	}
 	return;
     }
     if(chat[0] == "!load"&&room == "조현우"){
