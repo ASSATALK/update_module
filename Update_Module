@@ -170,10 +170,18 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         if(chat[1] == "count"){
 	    if(chat[2] != undefined){
 	    	save_cnt_max = Number(chat[2]);
+		replier.reply("Complete!");
+		
 	    }
 	}else if(chat[1] == "chat"){
-	    if(chat[2] == "ON") save_chat = true;
-	    else if(chat[2] == "false") save_chat = false;
+	    if(chat[2] == "ON"){
+	        save_chat = true;
+	        replier.reply("Complete!");
+	    }
+	    else if(chat[2] == "OFF"){
+	        save_chat = false;
+	        replier.reply("Complete!");
+	    }
 	}else{
             Save();
 	    replier.reply("저장을 완료 했습니다!");
