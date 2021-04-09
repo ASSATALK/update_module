@@ -210,7 +210,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         var check = false;
         for(var i = 0;i<=top;i++){
     	    if(sender == NAME[i]){
-	        SCORE[i]+=(msg.length)/(weight/weight_count);
+	        SCORE[i]+=((msg.length)/(weight/weight_count)/10 + 1);
 	        check = true;
 		sendercode = i;
        	    }
