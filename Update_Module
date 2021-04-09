@@ -2,7 +2,7 @@ PARSING_LINE
 
 var debug = false;
 
-const ver = "깡통봇 1.6";
+const ver = "깡통봇 1.6.2";
 
 const short = "\u200b".repeat(500);
 
@@ -219,9 +219,9 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         var check = false;
         for(var i = 0;i<=top;i++){
     	    if(sender == NAME[i]){
-	        SCORE[i]+=( ( (msg.length-(weight/weight_count))/msg.length) + 1);
+	        SCORE[i]+=(((msg.length-(weight/weight_count))/(msg.length+(weight/weight_count))) + 1);
 		if(debug == true){
-		    replier.reply(((msg.length-(weight/weight_count))/msg.length) + 1);
+		    replier.reply(((msg.length-(weight/weight_count))/(msg.length+(weight/weight_count))) + 1);
 		}
 	        check = true;
 		sendercode = i;
