@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.6";
+const ver = "깡통봇 1.6a";
 
 const short = "\u200b".repeat(500);
 
@@ -134,6 +134,9 @@ var save_chat = true;
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
     weight += msg.length;
     weight_count ++;
+    if(msg == "!weight"){
+    	replier.reply("가중치 : "+(weight/weight_count));
+    }
     save_cnt++;
     if(save_cnt >= save_cnt_max){
         save_cnt = 0;
