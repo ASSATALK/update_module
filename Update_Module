@@ -518,7 +518,7 @@ break;
 	}
     }
     for(var i = 0;i<30;i++){
-        if(msg==input[i]) replier.reply(Math.round(output[i]));
+        if(msg==input[i]) replier.reply(output[i]);
     }
     
 }
