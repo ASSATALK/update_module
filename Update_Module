@@ -137,7 +137,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     weight += msg.length;
     weight_count ++;
     if(msg == "!weight"){
-    	replier.reply("가중치 : "+weight+ ", " weight_count);
+    	replier.reply("가중치 : "+weight+ ", "+weight_count);
     }
     if(debug == true) replier.reply("Weight : "+weight+", Length : "+msg.length);
     save_cnt++;
