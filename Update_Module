@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.5";
+const ver = "깡통봇 1.6";
 
 const short = "\u200b".repeat(500);
 
@@ -11,6 +11,8 @@ var SCORE = [];
 var NAME = [];
 var top = 0;
 
+var weight = 5;
+var weight_count = 1;
 
 var input = [];
 var output = [];
@@ -130,6 +132,8 @@ var save_cnt_max = 10;
 var save_chat = true;
 
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
+    weight += msg.length;
+    weight_count ++;
     save_cnt++;
     if(save_cnt >= save_cnt_max){
         save_cnt = 0;
@@ -203,7 +207,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         var check = false;
         for(var i = 0;i<=top;i++){
     	    if(sender == NAME[i]){
-	        SCORE[i]++;
+	        SCORE[i]+=(msg.length)/(weight/weight_count);
 	        check = true;
 		sendercode = i;
        	    }
@@ -424,7 +428,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         //data = data.replace()
 //replier.reply(data);
         var check = false;
-        for(var i = 0;i<30;i++){
+        for(var i = 0;i<100;i++){
             if(chat[1]==input[i]){
                 check = true;
                 break;
