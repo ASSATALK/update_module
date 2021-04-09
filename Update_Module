@@ -1,5 +1,7 @@
 PARSING_LINE
 
+let debug = false;
+
 const ver = "깡통봇 1.6d";
 
 const short = "\u200b".repeat(500);
@@ -207,7 +209,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply("새로고침을 완료 했습니다!\ncode - "+top);
 	return;
     }
-    let debug = false;
+
     if(msg == "!debug"){
     	if(debug == false) debug = true;
 	else debug = false;
