@@ -1,8 +1,8 @@
 PARSING_LINE
 
-let debug = false;
+var debug = false;
 
-const ver = "깡통봇 1.6d";
+const ver = "깡통봇 1.6";
 
 const short = "\u200b".repeat(500);
 
