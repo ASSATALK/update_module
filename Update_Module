@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.6a";
+const ver = "깡통봇 1.6b";
 
 const short = "\u200b".repeat(500);
 
@@ -402,7 +402,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    max = -1;
 	}
 	let data = "랭크"+short+"\n";
-    	for(let i = 0;i<top;i++) data += (i+1)+"등 : "+NAME[rank[i]]+" - "+SCORE[rank[i]]+"P\n";
+    	for(let i = 0;i<top;i++) data += (i+1)+"등 : "+NAME[rank[i]]+" - "+Math.round(SCORE[rank[i]])+"P\n";
 	replier.reply(data);
     }
 	
@@ -506,7 +506,7 @@ break;
 	}
     }
     for(var i = 0;i<30;i++){
-        if(msg==input[i]) replier.reply(output[i]);
+        if(msg==input[i]) replier.reply(Math.round(output[i]));
     }
     
 }
