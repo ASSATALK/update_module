@@ -1,6 +1,6 @@
 PARSING_LINE
 
-const ver = "깡통봇 1.6c";
+const ver = "깡통봇 1.6d";
 
 const short = "\u200b".repeat(500);
 
@@ -135,8 +135,9 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     weight += msg.length;
     weight_count ++;
     if(msg == "!weight"){
-    	replier.reply("가중치 : "+(weight/weight_count));
+    	replier.reply("가중치 : "+weight+ ", " weight_count);
     }
+    if(debug == true) replier.reply("Weight : "+weight+", Length : "+msg.length);
     save_cnt++;
     if(save_cnt >= save_cnt_max){
         save_cnt = 0;
@@ -217,7 +218,9 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         for(var i = 0;i<=top;i++){
     	    if(sender == NAME[i]){
 	        SCORE[i]+=( ( (msg.length-(weight/weight_count))/msg.length) + 1);
-		replier.reply(((msg.length-(weight/weight_count))/msg.length) + 1);
+		if(debug == true){
+		    replier.reply(((msg.length-(weight/weight_count))/msg.length) + 1);
+		}
 	        check = true;
 		sendercode = i;
        	    }
