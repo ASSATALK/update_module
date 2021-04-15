@@ -2,7 +2,7 @@ PARSING_LINE
 
 var debug = false;
 
-const ver = "깡통봇 1.6.2";
+const ver = "깡통봇 1.7";
 
 const short = "\u200b".repeat(500);
 
@@ -52,6 +52,8 @@ function Save(){
         data+=mail[i].replace(/\n/g,"SLASHN")+"\n";
     }
     save("mail.txt",data);
+    data = weight + "COMMA" + weight_count;
+    save("weight.txt",data);
 }
 function Load(){
     var lod = read("command.txt").split("\n");
@@ -82,6 +84,10 @@ function Load(){
     for(let i = 0;i<top;i++){
     	mail[i] = lod[i].replace(/SLASHN/g,"\n");
     }
+    var load = read("weight.txt");
+    var data = load.split("COMMA");
+    weight = data[0];
+    weight_count = [1];
 }
 
 function save(fileName, Data)
