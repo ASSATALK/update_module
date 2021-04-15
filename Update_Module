@@ -86,8 +86,8 @@ function Load(){
     }
     var load = read("weight.txt");
     var data = load.split("COMMA");
-    weight = data[0];
-    weight_count = data[1];
+    weight = Number(data[0]);
+    weight_count = Number(data[1]);
 }
 
 function save(fileName, Data)
