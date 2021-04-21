@@ -227,7 +227,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     if(chat[0] == "!log"){
         if(chat[1] == "debug"){
 	    for(var i = log_head;i<log_head+log_max;i++){
-		replier.reply(log[i]);
+		replier.reply(i%log_max+" "+log[i%log_max]);
 	    }
 	}else if(chat[1] == "set"){
 	    if(chat[2]==undefined||Number(chat[2])>300||Number(chat[2])<0){
@@ -241,7 +241,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	}else{
 	    var data = "";
 	    for(var i = log_head;i<log_head+log_max;i++){
-	    	if(log[i]!=""&&log[i]!=undefined){
+	    	if(log[i%log_max]!=""&&log[i%log_max]!=undefined){
 		    data+=log[i%log_max]+"\n";
 		}
 	    }
