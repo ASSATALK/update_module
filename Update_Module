@@ -82,7 +82,7 @@ function Load(){
     var lod = load.split("\n");
     var i = 0;
     for(let i = 0;i<top;i++){
-    	mail[i] = lod[i].replace(/SLASHN/g,"\n");
+        if(lod[i]!=undefined) mail[i] = lod[i].replace(/SLASHN/g,"\n");
     }
     var load = read("weight.txt");
     var data = load.split("COMMA");
