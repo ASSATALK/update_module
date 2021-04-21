@@ -222,7 +222,11 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	return;
     }
     if(chat[0] == "!log"){
-        if(chat[1] == "set"){
+        if(chat[1] == "debug"){
+	    for(var i = log_head;i<log_head+log_max;i++){
+		replier.reply(log[i]);
+	    }
+	}else if(chat[1] == "set"){
 	    if(chat[2]==undefined||Number(chat[2])>300||Number(chat[2])<0){
 	        replier.reply("ER!");
 	    }else{
@@ -240,6 +244,8 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    }
 	    if(data!=""){
 		replier.reply("로그"+short+data);
+	    }else{
+	        replier.reply("ER!")
 	    }
 	}
     }
