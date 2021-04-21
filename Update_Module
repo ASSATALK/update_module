@@ -2,7 +2,7 @@ PARSING_LINE
 
 var debug = false;
 
-const ver = "깡통봇 1.7";
+const ver = "깡통봇 1.8a";
 
 const short = "\u200b".repeat(500);
 
@@ -139,7 +139,13 @@ var save_cnt = 0;
 var save_cnt_max = 10;
 var save_chat = true;
 
+var log = [];
+var log_head = 0;
+var log_max = 50;
+
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
+    log_head[head++] = sender+" : "+msg;
+    head = head % log_max;
     weight += msg.length;
     weight_count ++;
     if(msg == "!weight"){
@@ -215,7 +221,28 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply("새로고침을 완료 했습니다!\ncode - "+top);
 	return;
     }
-
+    if(chat[0] == "!log"){
+        if(chat[1] == "set"){
+	    if(chat[2]==undefined||Number(chat[2])>300||Number(chat[2])<0){
+	        replier.reply("ER!");
+	    }else{
+	        log_max = Number(chat[2]);
+	        replier.reply(log_max+" Set!");
+	    }
+	}else if(chat[1]==undefined||Number(chat[1])>50||Number(chat[1])<0){
+	    replier.reply("1 ~ 50의 숫자를 입력해주세요!");
+	}else{
+	    var data = "";
+	    for(var i = head;i<head+log_max;i++){
+	    	if(log[i]!=""&&log[i]!=undefined){
+		    data+=log[i%log_max]+"\n";
+		}
+	    }
+	    if(data!=""){
+		replier.reply("로그"+short+data);
+	    }
+	}
+    }
     if(msg == "!debug"){
     	if(debug == false) debug = true;
 	else debug = false;
