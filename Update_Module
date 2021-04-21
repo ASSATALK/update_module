@@ -236,8 +236,6 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	        log_max = Number(chat[2]);
 	        replier.reply(log_max+" Set!");
 	    }
-	}else if(chat[1]==undefined||Number(chat[1])>50||Number(chat[1])<0){
-	    replier.reply("1 ~ 50의 숫자를 입력해주세요!");
 	}else{
 	    var data = "";
 	    for(var i = log_head;i<log_head+log_max;i++){
