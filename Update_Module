@@ -144,7 +144,8 @@ var log_head = 0;
 var log_max = 50;
 
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
-    log[log_head++] = sender+" : "+msg;
+    log[log_head] = "";
+    log[log_head++] += sender+" : "+msg;
     log_head = log_head % log_max;
     weight += msg.length;
     weight_count ++;
