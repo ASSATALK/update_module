@@ -148,7 +148,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     log[log_head] = "";
     log[log_head++] += sender+" : "+msg;
     log_head = log_head % log_max;
-    replier.reply(sender+" : "+msg + "\n"+log[log_head-1]);
+    //replier.reply(sender+" : "+msg + "\n"+(log_head-1)+" "+log[log_head-1]);
     weight += msg.length;
     weight_count ++;
     if(msg == "!weight"){
