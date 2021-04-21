@@ -144,8 +144,8 @@ var log_head = 0;
 var log_max = 50;
 
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
-    log_head[head++] = sender+" : "+msg;
-    head = head % log_max;
+    log[log_head++] = sender+" : "+msg;
+    log_head = log_head % log_max;
     weight += msg.length;
     weight_count ++;
     if(msg == "!weight"){
@@ -233,7 +233,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    replier.reply("1 ~ 50의 숫자를 입력해주세요!");
 	}else{
 	    var data = "";
-	    for(var i = head;i<head+log_max;i++){
+	    for(var i = log_head;i<log_head+log_max;i++){
 	    	if(log[i]!=""&&log[i]!=undefined){
 		    data+=log[i%log_max]+"\n";
 		}
