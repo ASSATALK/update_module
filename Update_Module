@@ -31,7 +31,63 @@ for(let i = 0; i < 10;i ++){
     vote_able[i] = true;
     vote[i] = false;
 }
-
+function Backup(){
+    var data ="";
+    for(var i =0;i<30;i++){
+	if(input[i] != undefined){
+	    if(input[i]==undefined) break;
+	    data += input[i]+"COMMA"+output[i]+"COMMA"+person[i]+"\n";
+        }
+    }
+    save("command_backup.txt",data);
+    data = "";
+    for(var i = 0;i<top;i++){
+    	data += SCORE[i]+"COMMA"+NAME[i]+"\n";
+    }
+    save("score_backup.txt",data);
+    data = "";
+    for(var i = 0;i<top;i++){
+        if(mail[i] == undefined) mail[i] = "";
+        data+=mail[i].replace(/\n/g,"SLASHN")+"\n";
+    }
+    save("mail_backup.txt",data);
+    data = weight + "COMMA" + weight_count;
+    save("weight_backup.txt",data);
+}
+function Recovery(){
+    var lod = read("command_backup.txt").split("\n");
+    for(var i =0;i<30;i++){
+	if(lod[i] != undefined){
+	    var data = lod[i].split("COMMA");
+	    input[i] = data[0];
+	    output[i] = data[1];
+	    person[i] = data[2];
+	}
+    }
+    var lod = read("score_backup.txt").split("\n");
+    top = 0;
+    while(1){
+        if(lod[top]!=undefined){
+            var data = lod[top].split("COMMA");
+	    SCORE[top] = Number(data[0]);
+	    NAME[top] = data[1];
+	    top++;
+	}else{
+	    break;
+	}
+    }
+    var load = read("mail_backup.txt");
+    if(load == undefined) return;
+    var lod = load.split("\n");
+    var i = 0;
+    for(let i = 0;i<top;i++){
+        if(lod[i]!=undefined) mail[i] = lod[i].replace(/SLASHN/g,"\n");
+    }
+    var load = read("weight_backup.txt");
+    var data = load.split("COMMA");
+    weight = Number(data[0]);
+    weight_count = Number(data[1]);
+}
 function Save(){
     var data ="";
     for(var i =0;i<30;i++){
@@ -218,6 +274,17 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply("로딩을 완료 했습니다!");
 	return;
     }
+    if(chat[0] == "!backup"){
+    	Backup();
+	replier.reply("백업을 완료 했습니다!");
+	return;
+    }
+    if(chat[0] == "!recovery"&&room == "조현우"){
+    	Recovery();
+	replier.reply("복원을 완료 했습니다!");
+	return;
+    }
+    
     if(chat[0] == "!refresh"){
     	Save();
     	Load();
