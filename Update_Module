@@ -17,7 +17,7 @@ var weight = 5;
 var weight_count = 1;
 
 var paste = [];
-
+var paster;
 
 var input = [];
 var output = [];
@@ -351,14 +351,16 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     }
     
     if(paste[sendercode]!=""&&paste[sendercode]!=null){
-    	if(msg.indexOf(paste[sendercode])!=-1){
+    	if(msg.indexOf(paste[sendercode])!=-1&&paster == sendercode){
 	    SCORE[sendercode] -= 10;
 	    replier.reply("도배 검지");
 	}else{
 	    paste[sendercode] = msg;
+	    paster = sendercode;
 	}
     }else{
     	paste[sendercode] = msg;
+	paster = sendercode;
     }
     
     if(chat[0] == "!lottery"){
