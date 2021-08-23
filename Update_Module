@@ -16,6 +16,9 @@ var top = 0;
 var weight = 5;
 var weight_count = 1;
 
+var paste = [];
+
+
 var input = [];
 var output = [];
 var person = [];
@@ -200,7 +203,8 @@ var log_head = 0;
 var log_max = 50;
 
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
-
+    
+    
     log[log_head] = "";
     log[log_head++] += sender+" : "+msg;
     log_head = log_head % log_max;
@@ -345,16 +349,23 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    mail[sendercode] = "";
 	}
     }
-
+    
+    if(paste[sendercode]!=""&&paste[sendercode]!=null){
+    	if(msg.indexOf(paste[sendercode])!=0){
+	    score[sendercode] -= 10;
+	    replier.reply("도배 검지");
+	}
+    }
+    
     if(chat[0] == "!lottery"){
-        if(chat[1] == undefined) replier.reply("!lottery (1~20) 을 치시면 1000P 복권을 100P에 구입할 수 있습니다!");
-	else if(Number(chat[1])<1||Number(chat[1])>20) replier.reply("1~20 의 숫자를 입력해 주십시오!");
+        if(chat[1] == undefined) replier.reply("!lottery (1~30) 을 치시면 500P 복권을 100P에 구입할 수 있습니다!");
+	else if(Number(chat[1])<1||Number(chat[1])>30) replier.reply("1~30 의 숫자를 입력해 주십시오!");
 	else if(SCORE[sendercode] < 100) replier.reply("포인트가 부족합니다!");
 	else{
-	    SCORE[sendercode] -= 100;
-	    let num = Math.floor(Math.random()*20)+1;
+	    SCORE[sendercode] -= 100
+	    let num = Math.floor(Math.random()*45)+1;
 	    if(num == chat[1]){
-	        SCORE[sendercode] += 1000;
+	        SCORE[sendercode] += 500;
 	        replier.reply("당첨!\n행운번호 : "+num+"\n"+NAME[sendercode]+" - "+SCORE[sendercode]);
 	    }else{
 	        replier.reply("꽝...\n행운번호 : "+num+"\n"+NAME[sendercode]+" - "+SCORE[sendercode]);
