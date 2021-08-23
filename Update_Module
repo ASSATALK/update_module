@@ -354,7 +354,11 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     	if(msg.indexOf(paste[sendercode])!=0){
 	    score[sendercode] -= 10;
 	    replier.reply("도배 검지");
+	}else{
+	    paste[sendercode] = msg;
 	}
+    }else{
+    	paste[sendercode] = msg;
     }
     
     if(chat[0] == "!lottery"){
