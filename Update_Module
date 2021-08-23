@@ -2,7 +2,7 @@ PARSING_LINE
 
 var debug = false;
 
-const ver = "깡통봇 1.8a";
+const ver = "깡통봇 1.9";
 
 const short = "\u200b".repeat(500);
 
@@ -351,7 +351,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     }
     
     if(paste[sendercode]!=""&&paste[sendercode]!=null){
-    	if(msg.indexOf(paste[sendercode])!=0){
+    	if(msg.indexOf(paste[sendercode])!=-1){
 	    SCORE[sendercode] -= 10;
 	    replier.reply("도배 검지");
 	}else{
