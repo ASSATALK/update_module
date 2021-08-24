@@ -364,7 +364,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     }
     
     if(chat[0] == "!lottery"){
-        if(chat[1] == undefined) replier.reply("!lottery (1~30) 을 치시면 500P 복권을 100P에 구입할 수 있습니다!");
+        if(chat[1] == undefined) replier.reply("!lottery (1~30) 을 치시면 1000P 복권을 100P에 구입할 수 있습니다!");
 	else if(Number(chat[1])<1||Number(chat[1])>30) replier.reply("1~30 의 숫자를 입력해 주십시오!");
 	else if(SCORE[sendercode] < 100) replier.reply("포인트가 부족합니다!");
 	else{
