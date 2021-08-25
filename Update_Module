@@ -358,7 +358,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    	replier.reply("추첨에 현재 걸려있는 돈이 없습니다.");
 	    }else{
 	        let pla = Math.floor(Math.random()*radpp);
-		replier.reply(NAME[pla]+"님이 총 "+rad/10*9+"P를 획득하셨습니다!);
+		replier.reply(NAME[radp[pla]]+"님이 총 "+rad/10*9+"P를 획득하셨습니다!");
 		SCORE[pla] += rad/10*9;
 		rad = 0;
 		for(let i = 0;i<radpp;i++) radp[i] = 0;
@@ -376,10 +376,12 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 		    rad+=Number(chat[1]);
 		    radp[radpp] = sendercode;
 		    radpp++;
+		    replier.reply("완료했습니다!");
 		}else{
 		    SCORE[sendercode] -= Number(chat[1]);
 		    rad+=Number(chat[1]);
 		    radp[chk] = sendercode;
+		    replier.reply("완료했습니다!");
 		}
 	    }
 	}else{
