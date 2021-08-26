@@ -24,6 +24,12 @@ var input = [];
 var output = [];
 var person = [];
 
+var Hours =[];
+var Minutes =[];
+var Seconds = [];
+var Milliseconds=[];
+var dobae = 500;
+
 var vote_able = [];
 var vote = [];
 var vote_cast = [];
@@ -204,8 +210,6 @@ var log_head = 0;
 var log_max = 50;
 
 function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName) {
-    
-    
     log[log_head] = "";
     log[log_head++] += sender+" : "+msg;
     log_head = log_head % log_max;
@@ -350,7 +354,25 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    mail[sendercode] = "";
 	}
     }
-    	
+    if(chat[0] == "!penalty"){
+    	if(Number(chat[1]) > 0){
+	    replier.reply("Success!");
+	    dobae = Number(chat[1]);
+	}
+    }
+    let today = new Date();
+    hours = today.getHours();
+    minutes = today.getMinutes();
+    seconds = today.getSeconds();
+    milliseconds = today.getMilliseconds();
+    if( (3600000 * (hours - Hours[sendercode])) + (60000 * (minutes - Minutes[sendercode])) + (1000 * (seconds - Seconds[sendercode]))+(milliseconds - Milliseconds[sendercode]) < dobae){
+    	replier.reply(NAME[sendercode]+" 도배 검지\n -10P");
+	SCORE[sendercode] -= 10;
+    }
+    Hours[sendercode] = hours;
+    Minutes[sendercode] = minutes;
+    Seconds[sendercode] = seconds;
+    Milliseconds[sendercode] = milliseconds;
     if(chat[0] == "!chance"){
         if(chat[1] == undefined) replier.reply("!chance + (걸 포인트 1 ~ 10000)를 입력하시면 추첨에 돈을 넣을수 있습니다. 추첨을 종료하시려면 !chance end를 입력하세요.");
 	else if(chat[1] == "end"){
