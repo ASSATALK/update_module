@@ -43,7 +43,7 @@ for(let i = 0; i < 10;i ++){
 }
 function Backup(){
     var data ="";
-    for(var i =0;i<30;i++){
+    for(var i =0;i<300;i++){
 	if(input[i] != undefined){
 	    if(input[i]==undefined) break;
 	    data += input[i]+"COMMA"+output[i]+"COMMA"+person[i]+"\n";
@@ -66,7 +66,7 @@ function Backup(){
 }
 function Recovery(){
     var lod = read("command_backup.txt").split("\n");
-    for(var i =0;i<30;i++){
+    for(var i =0;i<300;i++){
 	if(lod[i] != undefined){
 	    var data = lod[i].split("COMMA");
 	    input[i] = data[0];
@@ -100,7 +100,7 @@ function Recovery(){
 }
 function Save(){
     var data ="";
-    for(var i =0;i<30;i++){
+    for(var i =0;i<300;i++){
 	if(input[i] != undefined){
 	    if(input[i]==undefined) break;
 	    data += input[i]+"COMMA"+output[i]+"COMMA"+person[i]+"\n";
@@ -123,7 +123,7 @@ function Save(){
 }
 function Load(){
     var lod = read("command.txt").split("\n");
-    for(var i =0;i<30;i++){
+    for(var i =0;i<300;i++){
 	if(lod[i] != undefined){
 	    var data = lod[i].split("COMMA");
 	    input[i] = data[0];
@@ -365,7 +365,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     minutes = today.getMinutes();
     seconds = today.getSeconds();
     milliseconds = today.getMilliseconds();
-    if( (3600000 * (hours - Hours[sendercode])) + (60000 * (minutes - Minutes[sendercode])) + (1000 * (seconds - Seconds[sendercode]))+(milliseconds - Milliseconds[sendercode]) < dobae){
+    if( (3600000 * (hours - Hours[sendercode])) + (60000 * (minutes - Minutes[sendercode])) + (1000 * (seconds - Seconds[sendercode]))+(milliseconds - Milliseconds[sendercode]) < dobae && (3600000 * (hours - Hours[sendercode])) + (60000 * (minutes - Minutes[sendercode])) + (1000 * (seconds - Seconds[sendercode]))+(milliseconds - Milliseconds[sendercode]) >= 0){
     	replier.reply(NAME[sendercode]+" 도배 검지\n -10P");
 	SCORE[sendercode] -= 10;
     }
@@ -625,7 +625,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
             return;
         }
         check = false;
-        for(var i = 0;i<30;i++){
+        for(var i = 0;i<300;i++){
             if(input[i]==undefined&&data!=""){
 	    	SCORE[sendercode] -= 100;
                 input[i] = chat[1];
@@ -643,7 +643,7 @@ break;
     if(chat[0]=="!remove"){
         var data = msg.replace(chat[0] + " ","");
         var check = false;
-        for(var i = 0;i<30;i++){
+        for(var i = 0;i<300;i++){
             if(input[i]==data){
 		if(sender==person[i]){
 		    input[i] = undefined;
@@ -663,7 +663,7 @@ break;
     if(chat[0]=="!list"){
         var data="사용자 명령어 리스트"+short+"\n";
         var check=false;
-        for(var i = 0;i<30;i++){
+        for(var i = 0;i<300;i++){
           //replier.reply(input[i]+" "+ output[i] + person[i]);
             if(input[i]!=""&&input[i]!=undefined){
                 data += "\n" +input[i]+" - "+output[i] + " ("+person[i]+")";
@@ -688,7 +688,7 @@ break;
 	    replier.reply(sender + " - " +Math.round(SCORE[code])+"P");
 	}
     }
-    for(var i = 0;i<30;i++){
+    for(var i = 0;i<300;i++){
         if(msg==input[i]) replier.reply(output[i]);
     }
     
