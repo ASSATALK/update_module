@@ -30,16 +30,14 @@ var Seconds = [];
 var Milliseconds=[];
 var dobae = 500;
 
-var vote_able = [];
 var vote = [];
-var vote_cast = [];
+var vote_O = [];
 
 var mail = [];
 
-for(let i = 0; i < 10;i ++){
-    vote_cast[i] = [];
-    vote_able[i] = true;
-    vote[i] = false;
+for(let i = 0; i < 300;i ++){
+vote[i] = 0;
+vote_O[i] = 0;
 }
 function Backup(){
     var data ="";
@@ -230,27 +228,16 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         hour = date.getHours(),
         minute = date.getMinutes();
     if(hour < time_hour||msg == "!test"){
-    
         Save();
-        let data = "투표 결과"+short+"\n";
         replier.reply("좋은 하루!");
     	for(let i = 0;i<top;i++){
-	    vote_able[i] = true;
-	    if(vote[i] == true){
-	        let O = vote_check(i);
-	  	X = O % 100;
-		O = (O - X)/100;
-		
-		if(O>=top/2){
-		    data += NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!\n"
-		    vote[i] = false;
-		}else{
-		     data += NAME[i]+"님의 투표가 O "+O+"표, X "+X+"표로 부결되었습니다!\n";
-		    vote[i] = false;
-		}
+	    if(vote[i] >= (top/2)&&vote_O[i] > 0){
+		replier.reply("명령어 "+input[i]+"에 대한 투표가 종료되었습니다!\nO "+(vote[i]+vote_O[i])/2+"표와 X "+(vote[i]-vote_O[i])/2+"표로 가결되었습니다!\n더이상 명령어 "+input[i]+"는 사용할수 없습니다.");
+		input[i] = undefined;
+                output[i] = undefined;
+                person[i] = undefined;
 	    }
 	}
-	replier.reply(data);
     }
     time_hour = hour;
     time_date = minute;
@@ -504,66 +491,34 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     }
     
     if(chat[0] == "!vote"){
-        if(chat[1] == "add"){
-	    if(vote_able[sendercode] == true){
-	        if(chat[2] != undefined && NAME[chat[2]] != undefined){
-	            if(vote[chat[2]] == false){
-		        for(let i = 0;i<top;i++){
-			    vote_cast[chat[2]][i] = 0;
-			}
-	                vote_able[sendercode] = false;
-			vote[chat[2]] = true;
-			replier.reply(NAME[chat[2]]+"님의 투표를 시작했습니다! 투표는 내일 0시 0분이후 채팅이 발신 되었을 때 자동종료됩니다!\n투표의 진행상황은 저장되지 않습니다! 업데이트나 새로고침할때 주의해 주십시오!");
-		    }else{
-		        replier.reply(NAME[chat[2]]+"님의 투표는 이미 진행중입니다!");
-	       	    }
+        let check = false;
+	let k = -1;
+	for(let i =0;i<300;i++){
+	    if(chat[1] == input[i]){
+	    	check = true;
+		k = i;
+		break;
+	    }
+	}
+	if(check == true){
+	    if(chat[2] == "O"){
+	        vote[k]++;
+		vote_O[k]++;
+	    }else if(chat[2] == "X"){
+	    	vote[k]++;
+		vote_O[k]--;
+	    }else{
+	    	if(vote[k] >= (top/2)&&vote_O[k] > 0){
+		    replier.reply("명령어 "+input[k]+"에 대한 투표가 종료되었습니다!\nO "+(vote[k]+vote_O[k])/2+"표와 X "+(vote[k]-vote_O[k])/2+"표로 가결되었습니다!\n더이상 명령어 "+input[k]+"는 사용할수 없습니다.");
+		    input[k] = undefined;
+                    output[k] = undefined;
+                    person[k] = undefined;
 		}else{
-		    replier.reply("등록 되지 않은 코드 입니다!");
+		    replier.reply("머하세연;");
 		}
-	    }else{
-	    	replier.reply("이미 투표를 추가하셨습니다!");
 	    }
-	}else if(chat[1] == "cast"){
-	    if(chat[2] != undefined && NAME[chat[2]] != undefined&&vote[chat[2]] == true){
-	    	if(vote_cast[chat[2]][sendercode] == 0||vote_cast[chat[2]][sendercode] == undefined){
-		   if(chat[3] == "O"){
-		       vote_cast[chat[2]][sendercode] = 1;
-		       replier.reply(NAME[chat[2]]+"님의 투표에 O를 선택하셨습니다! 후에 변경할 수 없는 점 유념해 주십시오!");
-		   }else if(chat[3] == "X"){
-		       vote_cast[chat[2]][sendercode] = 2;
-		       replier.reply(NAME[chat[2]]+"님의 투표에 X를 선택하셨습니다! 후에 변경할 수 없는 점 유념해 주십시오!");
-		   }else{
-		       replier.reply("투표는 O 또는 X로 참가 할수 있습니다!");
-		   }
-	    	}else{
-	       	    replier.reply("이미 투표하셨습니다!");
-	    	}
-	    }else{
-	    	replier.reply("등록되지 않은 코드이거나 대상의 투표가 진행되고 있지 않습니다!");
-	    }
-	}else if(chat[1] == "status"){
-	    let data="투표 현황"+short+"\n";
-	    for(let i = 0;i<top;i++){
-	        if(vote[i] == true){
-	            let O = vote_check(i);
-		    X = O % 100;
-		    O = (O - X)/100;
-		    if(O>=top/2){
-		        data += NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!\n";
-			replier.reply(NAME[i]+"님의 투표가 O "+O+"표로 가결되었습니다!");
-		        vote[i] = false;
-		    }else if(X>=top/2){
-		         data += NAME[i]+"님의 투표가 X "+X+"표로 되었습니다!\n";
-			 replier.reply(NAME[i]+"님의 투표가 X "+X+"표로 부결되었습니다!");
-			vote[i] = false;
-		    }else{
-		    	 data += NAME[i]+"님의 투표가 O "+O+"표, X "+X+"표로 진행중입니다!\n";
-		    }
- 	        }
-	    }
-	    replier.reply(data);
 	}else{
-	    replier.reply("투표를 추가하시려면 !vote add (투표 대상의 코드)를, 현재 진행중인 투표에 참가하시려면 !vote cast (투표 대상의 코드) (O / X)를, 진행중인 투표의 상태를 확인하시려면 !vote status를 입력해 주세요!");
+	    replier.reply("알 수 없는 명령어 입니다!");
 	}
     }
     
@@ -614,7 +569,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
         //data = data.replace()
 //replier.reply(data);
         var check = false;
-        for(var i = 0;i<100;i++){
+        for(var i = 0;i<300;i++){
             if(chat[1]==input[i]){
                 check = true;
                 break;
