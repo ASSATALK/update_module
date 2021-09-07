@@ -230,7 +230,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     if(hour < time_hour||msg == "!test"){
         Save();
         replier.reply("좋은 하루!");
-    	for(let i = 0;i<300;i++){
+    	/*for(let i = 0;i<300;i++){
 	    if(vote[i] >= ((top-1)/2)&&vote_O[i] > 0){
 		replier.reply("명령어 "+input[i]+"에 대한 투표가 종료되었습니다!\nO "+(vote[i]+vote_O[i])/2+"표와 X "+(vote[i]-vote_O[i])/2+"표로 가결되었습니다!\n더이상 명령어 "+input[i]+"는 사용할수 없습니다.");
 		input[i] = undefined;
@@ -244,7 +244,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    vote[i] = 0;
             vote_O[i] = 0;
 	}
-    }
+    }*/
     time_hour = hour;
     time_date = minute;
     var chat = msg.split(" ");
@@ -496,7 +496,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	replier.reply(data);
     }
     
-    if(chat[0] == "!vote"){
+    /*if(chat[0] == "!vote"){
         let check = false;
 	let k = -1;
 	for(let i =0;i<300;i++){
@@ -530,7 +530,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	}else{
 	    replier.reply("알 수 없는 명령어 입니다!");
 	}
-    }
+    }*/
     
     if(chat[0] == "!rank"){
         let rank = [],
