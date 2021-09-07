@@ -230,15 +230,19 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
     if(hour < time_hour||msg == "!test"){
         Save();
         replier.reply("좋은 하루!");
-    	for(let i = 0;i<top;i++){
+    	for(let i = 0;i<300;i++){
 	    if(vote[i] >= (top/2)&&vote_O[i] > 0){
 		replier.reply("명령어 "+input[i]+"에 대한 투표가 종료되었습니다!\nO "+(vote[i]+vote_O[i])/2+"표와 X "+(vote[i]-vote_O[i])/2+"표로 가결되었습니다!\n더이상 명령어 "+input[i]+"는 사용할수 없습니다.");
 		input[i] = undefined;
                 output[i] = undefined;
                 person[i] = undefined;
-	    }else{
+		vote[i] = 0;
+		vote_[i] = 0;
+	    }else if(vote[i] != 0){
 		replier.reply("명령어 "+input[i]+"에 대한 투표가 종료되었습니다!\nO "+(vote[i]+vote_O[i])/2+"표와 X "+(vote[i]-vote_O[i])/2+"표로 부결되었습니다!");
 	    }
+	    vote[i] = 0;
+            vote_O[i] = 0;
 	}
     }
     time_hour = hour;
