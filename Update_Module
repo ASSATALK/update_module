@@ -236,6 +236,8 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 		input[i] = undefined;
                 output[i] = undefined;
                 person[i] = undefined;
+	    }else{
+		replier.reply("명령어 "+input[i]+"에 대한 투표가 종료되었습니다!\nO "+(vote[i]+vote_O[i])/2+"표와 X "+(vote[i]-vote_O[i])/2+"표로 부결되었습니다!");
 	    }
 	}
     }
@@ -504,15 +506,19 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    if(chat[2] == "O"){
 	        vote[k]++;
 		vote_O[k]++;
+		replier.reply("Success!");
 	    }else if(chat[2] == "X"){
 	    	vote[k]++;
 		vote_O[k]--;
+		replier.reply("Success!");
 	    }else{
 	    	if(vote[k] >= (top/2)&&vote_O[k] > 0){
 		    replier.reply("명령어 "+input[k]+"에 대한 투표가 종료되었습니다!\nO "+(vote[k]+vote_O[k])/2+"표와 X "+(vote[k]-vote_O[k])/2+"표로 가결되었습니다!\n더이상 명령어 "+input[k]+"는 사용할수 없습니다.");
 		    input[k] = undefined;
                     output[k] = undefined;
                     person[k] = undefined;
+		}else if(chat[2] == "status"){
+		replier.reply("명령어 "+input[i]+"에 대한 투표가 진행중입니다!\nO "+(vote[i]+vote_O[i])/2+"표와 X "+(vote[i]-vote_O[i])/2+"표가 나왔습니다.");
 		}else{
 		    replier.reply("머하세연;");
 		}
