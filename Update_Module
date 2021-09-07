@@ -243,8 +243,8 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB, packageName)
 	    }
 	    vote[i] = 0;
             vote_O[i] = 0;
-	}
-    }*/
+	}*/
+    }
     time_hour = hour;
     time_date = minute;
     var chat = msg.split(" ");
